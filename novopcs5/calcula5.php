@@ -45,8 +45,8 @@ session_start();
     </head>
     <body>
       <?php
-      include '../bootstrap.php';
-      ?>    
+      include '../menu.php';
+      ?>
                 <div style="background-color:#FFF">
 <?php
     setlocale(LC_ALL, 'pt_BR');

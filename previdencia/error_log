@@ -1,0 +1,27 @@
+[13-Nov-2021 17:10:09 America/Fortaleza] PHP Fatal error:  Cannot redeclare calculaNovaPrevidencia() (previously declared in /home2/joseba98/public_html/previdencia/index.php:15) in /home2/joseba98/public_html/previdencia/index.php on line 64
+[13-Nov-2021 17:35:57 America/Fortaleza] PHP Parse error:  syntax error, unexpected '$categoria' (T_VARIABLE), expecting '(' in /home2/joseba98/public_html/previdencia/index.php on line 67
+[13-Nov-2021 17:37:07 America/Fortaleza] PHP Parse error:  syntax error, unexpected '$categoria' (T_VARIABLE), expecting '(' in /home2/joseba98/public_html/previdencia/index.php on line 68
+[13-Nov-2021 17:37:10 America/Fortaleza] PHP Parse error:  syntax error, unexpected '$categoria' (T_VARIABLE), expecting '(' in /home2/joseba98/public_html/previdencia/index.php on line 68
+[13-Nov-2021 17:49:27 America/Fortaleza] PHP Fatal error:  Uncaught Error: Function name must be a string in /home2/joseba98/public_html/previdencia/index.php:149
+Stack trace:
+#0 {main}
+  thrown in /home2/joseba98/public_html/previdencia/index.php on line 149
+[13-Nov-2021 17:50:24 America/Fortaleza] PHP Fatal error:  Uncaught Error: Function name must be a string in /home2/joseba98/public_html/previdencia/index.php:150
+Stack trace:
+#0 {main}
+  thrown in /home2/joseba98/public_html/previdencia/index.php on line 150
+[13-Nov-2021 17:53:19 America/Fortaleza] PHP Fatal error:  Uncaught Error: Function name must be a string in /home2/joseba98/public_html/previdencia/index.php:150
+Stack trace:
+#0 {main}
+  thrown in /home2/joseba98/public_html/previdencia/index.php on line 150
+[13-Nov-2021 17:53:28 America/Fortaleza] PHP Fatal error:  Uncaught Error: Function name must be a string in /home2/joseba98/public_html/previdencia/index.php:150
+Stack trace:
+#0 {main}
+  thrown in /home2/joseba98/public_html/previdencia/index.php on line 150
+[13-Nov-2021 17:55:28 America/Fortaleza] PHP Fatal error:  Uncaught Error: Function name must be a string in /home2/joseba98/public_html/previdencia/index.php:150
+Stack trace:
+#0 {main}
+  thrown in /home2/joseba98/public_html/previdencia/index.php on line 150
+[13-Nov-2021 18:06:34 America/Fortaleza] PHP Parse error:  syntax error, unexpected 'teto' (T_STRING), expecting variable (T_VARIABLE) or '{' or '$' in /home2/joseba98/public_html/previdencia/index.php on line 26
+[13-Nov-2021 18:07:23 America/Fortaleza] PHP Parse error:  syntax error, unexpected 'teto' (T_STRING), expecting variable (T_VARIABLE) or '{' or '$' in /home2/joseba98/public_html/previdencia/index.php on line 26
+[13-Nov-2021 18:07:25 America/Fortaleza] PHP Parse error:  syntax error, unexpected 'teto' (T_STRING), expecting variable (T_VARIABLE) or '{' or '$' in /home2/joseba98/public_html/previdencia/index.php on line 26

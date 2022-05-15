@@ -38,28 +38,6 @@ include '../bootstrap.php';
 		document.getElementById("trfunpresp").style.display = "none";
 	}
 
-	function mostraCampos(){
-		var planAssistecheck = document.getElementById("PlanAssiste").checked;
-		var parcindcheck = document.getElementById("parcIndenizatoria").checked;
-		var pensjudcheck = document.getElementById("pensaoJudicial").checked;
-		var outrosDescontoscheck = document.getElementById("outrosDescontosCheck").checked;
-		if(planAssistecheck)
-		document.getElementById("pPlan").style.display = "block";
-		else
-		document.getElementById("pPlan").style.display = "none";
-		if(parcindcheck)
-		document.getElementById("pParcInd").style.display = "block";
-		else
-		document.getElementById("pParcInd").style.display = "none";
-		if(pensjudcheck)
-		document.getElementById("pPensaoJud").style.display = "block";
-		else
-		document.getElementById("pPensaoJud").style.display = "none";
-		if(outrosDescontoscheck)
-		document.getElementById("pOutrosDescontos").style.display = "block";
-		else
-		document.getElementById("pOutrosDescontos").style.display = "none";
-	}
 
 
 	function orgaoAltera(){
@@ -69,13 +47,13 @@ include '../bootstrap.php';
 			document.getElementById("fc_jud").style.display = "none";
 			document.getElementById("at_mpu").style.display = "block";
 			document.getElementById("at_jud").style.display = "none";
-			document.getElementById("PlanAssiste").disabled = false;
+      document.getElementById("div_aux_saude").style.display = "block";
 			}else{
 			document.getElementById("fc_jud").style.display = "block";
 			document.getElementById("fc_mpu").style.display = "none";
 			document.getElementById("at_jud").style.display = "block";
 			document.getElementById("at_mpu").style.display = "none";
-			document.getElementById("PlanAssiste").disabled = true;
+      document.getElementById("div_aux_saude").style.display = "none";
 		}
 	}
 
@@ -87,290 +65,224 @@ include '../bootstrap.php';
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Salário MPU - Leis 13.316/2016 (MPU) e 13.317/2016 (Judiciário)</title>
     </head>
-    <body onload="mostraContribuicaoFunpresp();mostraCampos();orgaoAltera();">
+    <body onload="mostraContribuicaoFunpresp();orgaoAltera();">
       <?php
      include '../menu.php';
       ?>
+      <div class="container-fluid">
         <h1>Simulação dos PLs do MPU e Judiciário</h1>
         <p>Planilha para cálculo personalizado de como ficarão os salários dos servidores do MPU e Judiciário com a aprovação das Leis
         <a href=http://www.planalto.gov.br/ccivil_03/_Ato2015-2018/2016/Lei/L13316.htm target="resource window">13.316/2016</a>  e
         <a href=http://www.planalto.gov.br/ccivil_03/_Ato2015-2018/2016/Lei/L13317.htm target="resource window">13.317/2016</a>
         , planos do MPU e Judiciário, respectivamente.</p>
          <div>
-            <div style="background-color:#FFF">
-            <fieldset >
-            <legend >Informe os dados</legend>
-            <form action="calcula_2022.php" method="post">
 
-                <table>
-                    <tr>
-                        <td>Órgão
-                        </td>
-                        <td>
-                            <input type="radio" id="orgao_mpu" name="orgao" value="1" checked="true"
-                            onchange="orgaoAltera();"/>MPU
-                            <input type="radio" id="orgao_jud" name="orgao" value="2" onchange="orgaoAltera();"/>Judiciário
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Previdência
-                        </td>
-                        <td>
-                            <input type="radio" id="previdencia_proprio" name="previdencia" value="1" checked="true"
-                           onchange="mostraContribuicaoFunpresp();"/>
-                            Regime Próprio<a href="https://josebarbosa.com.br/contribuicao-previdenciaria-sobre-verbas-nao-permanentes-para-servidores-contemplados-pela-media/" target="_blank"  data-toggle="tooltip" data-original-title="Para servidores que ingressaram até 2013 e não fizeram a opção pelo regime de previdência complementar, a contribuição previdenciária incide sobre toda a remuneração. Para servidores que ingressaram ou migraram para o RPC, a base de cálculo se limita ao teto do RGPS, atualmente R$ 6.433,57."  >(até 2013)</a>
-                            <input type="radio" id="previdencia_funpresp" name="previdencia" value="2"
-							 onchange="mostraContribuicaoFunpresp();"/>Funpresp
+            <form action="calcula_2022.php" method="post" class="row ">
+              <div class="input-group mb-3">
+                <div class="input-group mb-3">
+                  <label for="penosa" class="col-sm-3 col-form-label">Órgão</label>
+                  <div class="col-sm-9 col">
+                    <input type="radio" id="orgao_mpu" name="orgao" value="1" checked="true"  class="btn-check" autocomplete="off"  onchange="orgaoAltera();">
+                        <label class="btn btn-outline-secondary" for="orgao_mpu"/>MPU</label>
+                        <input type="radio" id="orgao_jud" name="orgao" value="2" onchange="orgaoAltera();" class="btn-check" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="orgao_jud"/>Judiciário</label>
+                  </div>
+                </div>
 
-                    <p id="trfunpresp">
-						Contribuição:
-                    <select id="funprespIndice" name="funprespIndice">
-<option value="0.085"> 8,5%</option>
-						<option value="0.065"> 6,5%</option>
-						<option value="0.07"> 7%</option>
-						 <option value="0.075"> 7,5%</option>
-						<option value="0.08"> 8%</option>
 
-						<option value="0"> Não</option>
+                <div class="input-group mb-3">
+                    <label for="previdencia" class="col-sm-3 col-form-label">Regime Previdenciário</label>
+                    <div class="col-sm-9">
+                      <input type="radio" id="previdencia_proprio" name="previdencia" value="1" checked class="btn-check" autocomplete="off"
+                     onchange="mostraContribuicaoFunpresp();"/>
+                     <label class="btn btn-outline-secondary" for="previdencia_proprio"/>Paridade/Média Int.</label>
+                     <input type="radio" id="previdencia_funpresp" name="previdencia" value="2"  class="btn-check" autocomplete="off"
+        onchange="mostraContribuicaoFunpresp();"/>
+                    <label class="btn btn-outline-secondary" for="previdencia_funpresp"/>Prev. Complementar (FUNPRESP-JUD)</label>
+                    <div class="form-check form-switch form-floating" id="trfunpresp">
+                      <div class="form-floating">
+                        <select id="funprespIndice" name="funprespIndice" class="form-select mb-3" >
+                          <option value="0.085"> 8,5%</option>
+                          <option value="0.065"> 6,5%</option>
+                          <option value="0.07"> 7%</option>
+                           <option value="0.075"> 7,5%</option>
+                          <option value="0.08"> 8%</option>
+
+                          <option value="0"> Não (0%)</option>
+                        </select>
+                        <label for="funprespIndice">Contribuição Patrocinada</label>
+                      </div>
+                    <div class="form-check form-switch">
+                      <input  class="form-check-input" type="checkbox" id="funcaoContribuicaoFunpresp"
+                      name="funcaoContribuicaoFunpresp" value="1"/>
+                      <label class="form-check-label" for="funcaoContribuicaoFunpresp">Marque se deseja incluir FC/CC/CJ na base de cálculo da contribuição à Funpresp-JUD.</label>
+                    </div>
+                      <div class="form-floating mb-3">
+                        <input type="number" id="trfunpresp" class="form-control" name="funprespOpcional" size="4" maxlength="2" value="0"
+                          min="0" max="20" step="0.5"/>
+                        <label for="trfunpresp">Contribuição Opcional (%)</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="cargo" class="col-sm-3 col-form-label">Cargo</label>
+                  <div class="col-sm-9">
+                    <select id="cargo" name="cargo" class="form-select-lg col mb-3">
+                        <option value="2">Técnico</option>
+                        <option value="3">Analista</option>
+                        <option disabled value="4">Requisitado</option>
                     </select>
-                    <input type="checkbox" id="funcaoContribuicaoFunpresp"
-                    name="funcaoContribuicaoFunpresp" value="1"/> Marque se deseja incluir FC ou CC na base de cálculo.
-                     </p><p>Contribuição opcional: <input type="number" id="trfunpresp" name="funprespOpcional" size="4" maxlength="2" value="0"
-                        min="0" max="20" step="0.5"/>%</p></td></tr>
-                    <tr>
-                        <td>Cargo: </td>
-                        <td>
-                            <select id="cargo" name="cargo">
-                                <option value="2">Técnico</option>
-                                <option value="3">Analista</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Classe/Padrão*</td>
-                        <td>
-                            <select id="nivel" name="nivel">
-                                <option value="13">13</option>
-				<option value="1"> 1</option>
-                                <option value="2"> 2</option>
-                                <option value="3"> 3</option>
-                                <option value="4"> 4</option>
-                                <option value="5"> 5</option>
-                                <option value="6"> 6</option>
-                                <option value="7"> 7</option>
-                                <option value="8"> 8</option>
-                                <option value="9"> 9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="nivel" class="col-sm-3 col-form-label">Classe / Padrão</label>
+                  <div class="col-sm-9">
+                    <select id="nivel" name="nivel" class="form-select-lg col mb-3">
+                      <option value="13">13</option>
+                      <option value="1"> 1</option>
+                      <option value="2"> 2</option>
+                      <option value="3"> 3</option>
+                      <option value="4"> 4</option>
+                      <option value="5"> 5</option>
+                      <option value="6"> 6</option>
+                      <option value="7"> 7</option>
+                      <option value="8"> 8</option>
+                      <option value="9"> 9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="fc_jud" class="col-sm-3 col-form-label">Função ou Cargo em Comissão</label>
+                  <div class="col-sm-9">
+                    <select id="fc_jud" name="fc_jud" class="form-select-lg col mb-3">
+                        <option value="">Não</option>
+                        <option value="1">FC-1</option>
+                        <option value="2">FC-2</option>
+                        <option value="3">FC-3</option>
+                        <option value="4">FC-4</option>
+                        <option value="5">FC-5</option>
+                        <option value="6">FC-6</option>
+                        <option value="7">CJ-1</option>
+                        <option value="8">CJ-2</option>
+                        <option value="9">CJ-3</option>
+                        <option value="10">CJ-4</option>
+                    </select>
+                    <select id="fc_mpu" name="fc" class="form-select-lg col mb-3">
+                        <option value="">Não</option>
+                        <option value="1">FC-1</option>
+                        <option value="2">FC-2</option>
+                        <option value="3">FC-3</option>
+                        <option value="4">CC-1</option>
+                        <option value="5">CC-2</option>
+                        <option value="6">CC-3</option>
+                        <option value="7">CC-4</option>
+                        <option value="8">CC-5</option>
+                        <option value="9">CC-6</option>
+                        <option value="10">CC-7</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="gas" class="col-sm-3 col-form-label">GAS/GAE/GP</label>
+                  <div class="col-sm-9 col">
+                    <input type="radio" name="gas" id="gas35" value="0.35"  class="btn-check" autocomplete="off"/>
+                    <label class="btn btn-outline-secondary" for="gas35"/>GAS, GAE ou Projeto (35%)</label>
+                    <input type="radio" name="gas" id="gas25" value="0.25" class="btn-check" autocomplete="off"/>
+                    <label class="btn btn-outline-secondary" for="gas25"/>GAS (25%)</label>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="penosa" class="col-sm-3 col-form-label">Penosidade ou Periculosidade</label>
+                  <div class="col-sm-9 col">
+                    <input type="radio" name="penosa" id="penosa10" value="0.1"  class="btn-check" autocomplete="off"/>
+                    <label class="btn btn-outline-secondary" for="penosa10"/>Penosidade ou Insalubridade(10%)</label>
+                    <input type="radio" name="penosa" id="penosa20" value="0.2"  class="btn-check" autocomplete="off"/>
+                    <label class="btn btn-outline-secondary" for="penosa20"/>Penosidade ou Insalubridade(20%)</label>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="aq" class="col-sm-3 col-form-label">Adicional de Qualificação</label>
+                  <div class="col-sm-9 col">
+                    <input type="radio" id="aq" name="aq" value="0" checked class="btn-check" autocomplete="off" />
+                    <label class="btn btn-outline-secondary" for="aq"/>Não</label>
+                    <input type="radio" id="aqGraduacao" name="aq"  value="0.05" class="btn-check" autocomplete="off" />
+                    <label class="btn btn-outline-secondary" for="aqGraduacao"/>Graduação (5%)</label>
+                    <input type="radio" id="aqEspecializacao" name="aq" value="0.075" class="btn-check" autocomplete="off" />
+                    <label class="btn btn-outline-secondary" for="aqEspecializacao"/>Especialização (7,5%)</label>
+                    <input type="radio" id="aqMestrado" name="aq"  value="0.1" class="btn-check" autocomplete="off" />
+                    <label class="btn btn-outline-secondary" for="aqMestrado"/>Mestrado (10%)</label>
+                    <input type="radio" id="aqDoutorado" name="aq"  value="0.125" class="btn-check" autocomplete="off" />
+                    <label class="btn btn-outline-secondary" for="aqDoutorado"/>Doutorado(12,5%)</label>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="at_jud" class="col-sm-3 col-form-label">Adicional de Treinamento</label>
+                  <div class="col-sm-9">
+                    <select name="at" id="at_mpu" class="form-select-lg col mb-3">
+        							<option value="">Não</option>
+                                    <option value="0.01">2,5% (120 horas)</option>
+                                    <option value="0.02">5% (240 horas)</option>
+        							</select>
+        							<select name="at_jud" id="at_jud" class="form-select-lg col mb-3">
+        							<option value="">Não</option>
+                                    <option value="0.01">1% (120 horas)</option>
+                                    <option value="0.02">2% (240 horas)</option>
+                                    <option value="0.03">3% (360 horas)</option>
+        							</select>
+                      <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" name="atPSS"/> Marque se deseja incluir o adicional de treinamento na base de cálculo de contribuição previdenciária.</label>
+                      </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="anuenio" class="col-sm-3 col-form-label">Adicional por Tempo de Serviço</label>
+                  <div class="col-sm-9 col form-floating mb-3">
+                    <input type="number" id="anuenio" name="anuenio" size="2" maxlength="2" value="0"
+                    max="35" min="0" class="form-control"/>
+                    <label for="anuenio"> ATS/Anuênios (%)</label>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="dependentes" class="col-sm-3 col-form-label">Dependentes (IRRF)</label>
+                  <div class="col-sm-9 col form-floating mb-3">
+                    <input type="number" id="dependentes" name="dependentes" size="2" maxlength="1" value="0"
+                    min="0" max="9" class="form-control"/>
+                    <label for="dependentes"> Número</label>
+                  </div>
+                </div>
+                <div class="input-group mb-3" >
+                  <label for="dependentesCreche" class="col-sm-3 col-form-label">Auxílio-creche</label>
+                  <div class="col-sm-9 col form-floating mb-3">
+                    <input type="number" id="dependentesCreche" name="dependentesCreche" size="2" maxlength="1"
+        						value="0"  min="0" max="9" class="form-control"/>
+                    <label for="dependentesCreche"> Número</label>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <label for="depAuxSaude" class=col-sm-3 col-form-label>Dep. Auxílio Saúde</label>
+                  <div class="col-sm-9 col form-floating mb-3">
+                    <input type="number" id="depAuxSaude" name="depAuxSaude" size="2" maxlength="1" value="0"
+                    min="0" max="9" class="form-control"/>
+                    <label for="depAuxSaude"> Número</label>
+                  </div>
+                </div>
+                <div class="input-group mb-3" >
+                  <label for="vpni" class="col-sm-3 col-form-label">VPNI / Incorporações:</label>
+                  <div class="col-sm-9 col form-floating mb-3">
+                    <input type="text" name="vpni" id="vpni" size ="10" maxlength="9"  class="form-control"/>
+                    <label for="vpni"> VPNI (R$)</label>
+                  </div>
+                </div>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>FC/CC</td>
-                        <td>
-                            <select id="fc_jud" name="fc_jud">
-                                <option value="">Não</option>
-                                <option value="1">FC-1</option>
-                                <option value="2">FC-2</option>
-                                <option value="3">FC-3</option>
-                                <option value="4">FC-4</option>
-                                <option value="5">FC-5</option>
-                                <option value="6">FC-6</option>
-                                <option value="7">CJ-1</option>
-                                <option value="8">CJ-2</option>
-                                <option value="9">CJ-3</option>
-                                <option value="10">CJ-4</option>
-                            </select>
-                            <select id="fc_mpu" name="fc">
-                                <option value="">Não</option>
-                                <option value="1">FC-1</option>
-                                <option value="2">FC-2</option>
-                                <option value="3">FC-3</option>
-                                <option value="4">CC-1</option>
-                                <option value="5">CC-2</option>
-                                <option value="6">CC-3</option>
-                                <option value="7">CC-4</option>
-                                <option value="8">CC-5</option>
-                                <option value="9">CC-6</option>
-                                <option value="10">CC-7</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>GAS/GAE
-                            <br/>Insalubridade<br />
-                            Projeto <br />
-                            Penosidade</td>
-                        <td>
-                            <input type="radio" name="gas" id="gas" value="0.35" />GAS, GAE ou Projeto (35%)<br/>
-                            <input type="radio" name="gas" id="gas" value="0.25"/> GAS (25%)<br >
-                            <input type="radio" name="penosa" id="penosa" value="0.1" />Periculosidade - Insalubridade(10%)<br />
-                            <input type="radio" name="penosa" id="penosa" value="0.2" />Penosidade ou Insalubridade(20%)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ad. Qualificação</td>
-                        <td><input type="radio" id="aq" name="aq" value="0" checked/>Não<br />
-                            <input type="radio" id="aqGraduacao" name="aq"  value="0.05"/>Graduação
-                            <input type="radio" id="aqEspecializacao" name="aq" value="0.075"/>Especialização<br />
-                            <input type="radio" id="aqMestrado" name="aq"  value="0.1"/> Mestrado
-                            <input type="radio" id="aqDoutorado" name="aq"  value="0.125"/>Doutorado</td>
-                    </tr>
-                    <tr>
-                        <td>Ad. Treinamento </td>
-                        <td>
-							<select name="at" id="at_mpu">
-							<option value="">Não</option>
-                            <option value="0.01">2,5% (120 horas)</option>
-                            <option value="0.02">5% (240 horas)</option>
-							</select>
-							<select name="at_jud" id="at_jud">
-							<option value="">Não</option>
-                            <option value="0.01">1% (120 horas)</option>
-                            <option value="0.02">2% (240 horas)</option>
-                            <option value="0.03">3% (360 horas)</option>
-							</select>
-							<input type="checkbox" name="atPSS"/> Marque se deseja incluir esta rubrica na base de cálculo de contribuição previdenciária.
-                    </tr>
-                    <tr>
-                        <td>Anuênios</td>
-                        <td><input type="number" id="anuenio" name="anuenio" size="2" maxlength="2" value="0"
-                        max="35" min="0"/></td>
-                    </tr>
-                    <tr>
-                        <td>Dependentes</td>
-                        <td><input type="number" id="dependentes" name="dependentes" size="2" maxlength="1" value="0"
-                        min="0" max="9"/></td>
-                    </tr>
-                    <tr>
-						<td>Auxílio-creche</td>
-						<td><input type="number" id="dependentesCreche" name="dependentesCreche" size="2" maxlength="1"
-						value="0"  min="0" max="9"/></td>
-                    </tr>
-		    <tr>
-			<td>Dep. Aux. Saúde (MPU)</td>
-			<td><input type="number" id="depAuxSaude" name="depAuxSaude" size= "2" maxlength="1" value="0" min="0" max="9"/></td>
-                    <tr>
-                        <td>VPNI </td>
-                        <td>
-                            R$ <input type="text" name="vpni" id="vpni" value="0,00" size ="10" maxlength="9" /> <b>(não inclua os R$ 59,87 de VPI)</b>
-                        </td>
-                    </tr>
-
-                    <tr>
-						<td>Considerar progressões</td>
-						<td><input type="checkbox" name="progredir" />Marque se deseja calcular progressões automáticas.
-						<br>Mês da progressão:
-							<select name="mesprogressao">
-								<option value="1"> 1</option>
-                                <option value="2"> 2</option>
-                                <option value="3"> 3</option>
-                                <option value="4"> 4</option>
-                                <option value="5"> 5</option>
-                                <option value="6"> 6</option>
-                                <option value="7"> 7</option>
-                                <option value="8"> 8</option>
-                                <option value="9"> 9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="1">12</option>
-							</select>
-						</td>
-                    </tr>
-                    <tr>
-						<td>Interpretar parcial Julho</td>
-						<td>
-							<select name="parcialjulho">
-								<option value="0.33333333">10/30 dias</option>
-								<option value="0.35483871">11/31 dias</option>
-							</select>
-						</td>
-                    </tr>
-
-                    <tr><td>Campos Opcionais<br>(Marque para exibir o conteúdo)</td><td>
-						<input type="checkbox" name="PlanAssiste" id="PlanAssiste" value="1"
-						onclick="mostraCampos();"/> PlanAssiste  <font style="color: #ffffff; background-color:#003300">__</font>
-						<br><input type="checkbox" name="parcIndenizatoria" id="parcIndenizatoria" value="1"
-						onclick="mostraCampos();"/> Parcelas Indenizatórias  <font style="color: #ffffff; background-color:#000066">__</font>
-						<br><input type="checkbox" name="pensaoJudicial" id="pensaoJudicial"  value="1"
-						onclick="mostraCampos();"/> Pensão Alimentícia Judicial <font style="color: #ffffff; background-color:#663300">__</font>
-						<br><input type="checkbox" name="outrosDescontosCheck" id="outrosDescontosCheck" value="1"
-						onclick="mostraCampos();"/> Descontos (como consignados) <font style="color: #ffffff; background-color:#000000">__</font>
-
-
-						<p id="pPlan"
-						style="color: #ffffff; background-color:#003300">
-						    Em implementação. Aguardando a confirmação de reajuste para 2022.
-						    <!-- Criar aqui uma tabela pelas faixas etárias
-						    00-18
-                            131,29
-                            446,88
-                            19-23
-                            203,98
-                            459,20
-                            24-28
-                            282,10
-                            526,40
-                            29-33
-                            284,27
-                            560,00
-                            34-38
-                            298,38
-                            683,20
-                            39-43
-                            328,76
-                            728,00
-                            44-48
-                            358,05
-                            873,60
-                            49-53
-                            458,96
-                            1.086,40
-                            54-58
-                            494,76
-                            1.478,40
-                            59 ou +
-                            632,56
-                            1.573,60
-
-						<input type="checkbox" name="planAssisteTitular" checked value="0.02"> Titular
-						<input type="checkbox" name="planAssisteConjuge" value="0.01"> Cônjuge
-						Filhos: <input type="number" id="planAssisteFilho" name="planAssisteFilho" maxlength="1" value="0" size="2"
-						 min="0" max="9"/>
-						 Pais: <input type="number" id="planAssistePais" name="planAssistePais" maxlength="1" value="0" size="2"
-						 min="0" max="4"/>
-						 Ex-cônjuge/companheiro(a): <input type="number" id="planAssisteExConjuge" name="planAssisteExConjuge" maxlength="1" value="0" size="2"
-						 min="0" max="2"/>
-						 Beneficiários Especiais: <input type="number" id="planAssisteBeneficiariosEspeciais" name="planAssisteBeneficiariosEspeciais" maxlength="1" value="0" size="2"
-						 min="0" max="9"/>
-						 -->
-						</p>
-						<p id="pParcInd"
-						style="color: #ffffff; background-color:#000066">
-						<b>Parcelas Indenizatórias: </b>
-						R$ <input type="text" name="indenizatorias" id="indenizatorias" value="0,00" size ="10" maxlength="9" />
-						</p>
-						<p id="pPensaoJud"
-						style="color: #ffffff; background-color:#663300">
-						<b>Pensão Alimentícia Judicial:</b> R$ <input type="text" name="pensaoAlimenticiaJudicial" id="pensaoAlimenticiaJudicial" value="0,00" size ="10" maxlength="9" />
-						 || <b>Percentual:</b> R$ <input type="number" name="pensaoAlimenticiaJudicialPercentual" id="pensaoAlimenticiaJudicialPercentual" value="0" size ="10" maxlength="9" min="0" max="99"/>%
-						</p>
-						<p id="pOutrosDescontos"
-						style="color: #ffffff; background-color:#000000">
-						<b>Outros Descontos:</b> R$ <input type="text" name="outrosDescontos" id="outrosDescontos" value="0,00" size ="10" maxlength="9"  />
-						</p>
-
-                    </td></tr>
-
-                    <tr><td>====>>></td><td><input  class="btn btn-secondary" type="submit" value="Calcular"/></td></tr>
-                </table>
+              </div>
+                <input  class="btn btn-secondary btn-lg mb-3" type="submit" value="Calcular"/>
             </form>
-        </fieldset>
         </div>
-        </div>
-        <br />
+
 
         <div>
 			<!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
@@ -383,14 +295,10 @@ include '../bootstrap.php';
 			<!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
         </div>
 		<p>Se você gostou, contribua com a iniciativa. Doe!  É possível doar qualquer valor, o procedimento é seguro (através do PagSeguro), e sua contribuição é muito importante para custear as despesas de manutenção desta página. </p>
-		<p><b>Dica: </b>Utilize o campo <b>Indenizatórias </b>para inclusão de despesas indenizatórias como diárias ou ajudas de transporte. Já o campo <b>Outros descontos </b> visa facilitar a inclusão de
-		rubricas como associações e parcelas de crédito consignado. Ambas não fazem efeito para apuração de tributos (PSS e IRRF).</p>
 		<hr width="50%">
-	<p>Atualizado em 29/01/2022. <a href="sobre.php">Sobre o Sistema</a></p>
-      <p>© Todos os direitos reservados. Criado por José Antonio dos Santos Barbosa. <adress>Contato: <a href="mailto:webmaster@josebarbosa.com.br">
-webmaster@josebarbosa.com.br</a></adress>
-<p><b>Observação</b>: os valores ora demonstrados são apenas uma perspectiva, e podem apresentar diferenças em razão de interpretação ou aplicação por parte dos órgãos.
-Favor utilizar o e-mail para esclarecer dúvidas sobre eventuais inconsistências encontradas, ou verificar o motivo para a simulação apresentar diferenças significativas nos valores.
-
+	<p>Atualizado em 14/05/2022. <a href="sobre.php">Sobre o Sistema</a></p>
+      <p>© Todos os direitos reservados. Criado por José Antonio dos Santos Barbosa. <adress>Contato: <a href="mailto:jose@josebarbosa.com.br">
+jose@josebarbosa.com.br</a></adress>
+</div>
     </body>
 </html>

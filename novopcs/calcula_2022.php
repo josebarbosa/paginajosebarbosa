@@ -189,7 +189,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 if($orgao == 1) $auxSaude = $vencimento;
                 echo "<table class='table table-striped'>
                 <thead class='table-light'>
-                <th><td>Rubrica</td><td>Valor (R$)</td></th></thead>
+                <th>Rubrica</th><th>Valor (R$)</th></thead>
                 <tbody>
                 <tr class='table-success'><td>Vencimento Básico (".$nivel."): </td><td align='right'>".formataNumeroReal($vencimento)." </td></tr>";
                 $bruto = $vencimento;

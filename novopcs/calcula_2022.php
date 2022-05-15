@@ -47,7 +47,7 @@ session_start();
       <?php
       include '../menu.php';
       ?>
-                <div style="background-color:#FFF">
+                <div class="container" style="background-color:#FFF">
 <?php
     setlocale(LC_ALL, 'pt_BR');
 
@@ -133,19 +133,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
         $vpni = $_POST['vpni'];
         $vpni = explode(",", $vpni);
         $vpni = implode(".", $vpni);
-        //indenizatorias
-        $indenizatorias = $_POST['indenizatorias'];
-        $indenizatorias = explode(",", $indenizatorias);
-        $indenizatorias = implode(".", $indenizatorias);
-	$dependentesAuxilioSaude = $_POST['depAuxSaude'];
-        //outrosDescontos
-        $outrosDescontos = $_POST['outrosDescontos'];
-        $outrosDescontos = explode(",", $outrosDescontos);
-        $outrosDescontos = implode(".", $outrosDescontos);
-        //PensÃ£o AlimentÃ­cia Judicial
-        $pensaoAlimentciaJudicial = $_POST['pensaoAlimenticiaJudicial'];
-        $pensaoAlimentciaJudicial = explode(",", $pensaoAlimentciaJudicial);
-        $pensaoAlimentciaJudicial = implode(".", $pensaoAlimentciaJudicial);
+        $dependentesAuxilioSaude = $_POST['depAuxSaude'];
         if($_POST['gas'])$gas = $_POST['gas'];
         if($_POST['projeto'])$projeto = $_POST['projeto'];
         if($_POST['penosa'])$penosa = $_POST['penosa'];
@@ -155,23 +143,9 @@ function calculaNovaPrevidencia($vencimento, $ano){
         $at_jud = $_POST['at_jud'];
         $dependentes = $_POST['dependentes'];
         $dependentesCreche = $_POST['dependentesCreche'];
-        //campos opcionais
-        $isPlanAssiste = $_POST['PlanAssiste'];
-        $isParcIndenizatoria = $_POST['parcIndenizatoria'];
-        $isPensaoJudicial = $_POST['pensaoJudicial'];
-        $isOutrosDescontos = $_POST['outrosDescontosCheck'];
-        //InformaÃ§Ãµes para Ã­ndice do plan-assiste
-        $planTit = $_POST['planAssisteTitular'];
-        $planConj = $_POST['planAssisteConjuge'];
-        $planAssisteFilho = $_POST['planAssisteFilho'];
-        $parcialJulho = $_POST['parcialjulho'];
         if($_POST['funprespOpcional'])$funprespOpcional = $_POST['funprespOpcional']/100;
         $gasIndice = $_POST['gas'];
         $at2015 = $at;
-        $planAssistePais = $_POST['planAssistePais'];
-        $planAssisteExConjuge = $_POST['planAssisteExConjuge'];
-        $planAssisteBeneficiariosEspeciais = $_POST['planAssisteBeneficiariosEspeciais'];
-        $pensaoAlimenticiaJudicialPercentual = $_POST['pensaoAlimenticiaJudicialPercentual'];
 
 	//Testando o novo banco de dados em localhost.
         //ConexÃ£o com o banco de dados
@@ -213,9 +187,11 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 $row2 = mysqli_fetch_array($resultado2, MYSQLI_ASSOC);
                 $vencimento = $row2['vb'];
                 if($orgao == 1) $auxSaude = $vencimento;
-                echo "<table>
-                <tr><td>Rubrica</td><td>Valor (R$)</td></tr>
-                <tr><td>Vencimento Básico (".$nivel."): </td><td align='right'>".formataNumeroReal($vencimento)." </td></tr>";
+                echo "<table class='table table-striped'>
+                <thead class='table-light'>
+                <th><td>Rubrica</td><td>Valor (R$)</td></th></thead>
+                <tbody>
+                <tr class='table-success'><td>Vencimento Básico (".$nivel."): </td><td align='right'>".formataNumeroReal($vencimento)." </td></tr>";
                 $bruto = $vencimento;
                 $baseIrrf = $vencimento;
                 $basepss = $vencimento;
@@ -231,8 +207,8 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 $gajIndice = $gaj;
                 $gaj = round(($vencimento * $gaj),2);
                 if($orgao == 1) $auxSaude += $gaj;
-                if($orgao==1) echo "<tr><td>GAMPU: </td><td align='right'>".formataNumeroReal($gaj)." </td></tr>";
-                else echo "<tr><td>Gratificação Judiciária: </td><td align='right'>".formataNumeroReal($gaj)." </td></tr>";
+                if($orgao==1) echo "<tr class='table-success'><td>GAMPU: </td><td align='right'>".formataNumeroReal($gaj)." </td></tr>";
+                else echo "<tr class='table-success'><td>Gratificação Judiciária: </td><td align='right'>".formataNumeroReal($gaj)." </td></tr>";
                 $bruto += $gaj;
                 $baseIrrf += $gaj;
                 $basepss += $gaj;
@@ -243,7 +219,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 */
                 if($gas){
                         $gasValor = round(($vencimento * $gasIndice),2);
-                        echo "<tr><td>GAS/Projeto: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
+                        echo "<tr class='table-success'><td>GAS/Projeto: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
                         $bruto += $gasValor;
                         $baseIrrf += $gasValor;
                         $basepss+= $gasValor;
@@ -255,7 +231,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 */
                 if($penosa){
                         $gasValor = round(($vencimento * $penosa),2);
-                        echo "<tr><td>Penosidade: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
+                        echo "<tr class='table-success'><td>Penosidade: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
                         $bruto += $gasValor;
                         $baseIrrf += $gasValor;
                 }
@@ -265,7 +241,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 if($aq>0 ){
                         if($cargo == 3 && $aq==0.05) $gasValor=0;
                         else $gasValor = round(($vencimento * $aq),2);
-                        echo "<tr><td>Adicional de Qualificação: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
+                        echo "<tr class='table-success'><td>Adicional de Qualificação: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
                         $bruto += $gasValor;
                         $baseIrrf += $gasValor;
                         $basepss += $gasValor;
@@ -285,7 +261,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                                 }
                         }
                         $atValor = round(($vencimento * $at),2);
-                        echo "<tr><td>Adicional de Treinamento: </td><td align='right'>".formataNumeroReal($atValor)." </td></tr>";
+                        echo "<tr class='table-success'><td>Adicional de Treinamento: </td><td align='right'>".formataNumeroReal($atValor)." </td></tr>";
                         $bruto += $atValor;
                         $baseIrrf += $atValor;
 
@@ -295,7 +271,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 }
                 if($at_jud && $orgao==2){
                         $gasValor = round(($vencimento * $at_jud),2);
-                        echo "<tr><td>Adicional de Treinamento: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
+                        echo "<tr class='table-success'><td>Adicional de Treinamento: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
                         $bruto += $gasValor;
                         $baseIrrf += $gasValor;
 
@@ -311,7 +287,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 */
             if($anuenio){
                         $gasValor = round(($vencimento * ($anuenio/100)),2);
-                        echo "<tr><td>Anuênio: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
+                        echo "<tr class='table-success'><td>Anuênio: </td><td align='right'>".formataNumeroReal($gasValor)." </td></tr>";
                         $bruto += $gasValor;
                         $baseIrrf += $gasValor;
                         $basepss += $gasValor;
@@ -322,7 +298,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 */
                 if($vpni>0){
 
-                        echo "<tr><td>VPNI: </td><td align='right'>".formataNumeroReal($vpni)." </td></tr>";
+                        echo "<tr class='table-success'><td>VPNI: </td><td align='right'>".formataNumeroReal($vpni)." </td></tr>";
                         $bruto += $vpni;
                         $baseIrrf += $vpni;
                         $basepss += $vpni;
@@ -333,7 +309,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 */
 
             $auxilioAlimentacao = 910.08;
-            echo "<tr><td>Auxílio-alimentação: </td><td align='right'>".formataNumeroReal($auxilioAlimentacao)." </td></tr>";
+            echo "<tr class='table-success'><td>Auxílio-alimentação: </td><td align='right'>".formataNumeroReal($auxilioAlimentacao)." </td></tr>";
             $bruto += $auxilioAlimentacao;
 
                 /*
@@ -341,13 +317,10 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 */
                 if($dependentesCreche){
                     $auxilioCreche = $dependentesCreche * 719.62;
-                    echo "<tr><td>Auxílio-creche: </td><td align='right'>".formataNumeroReal($auxilioCreche)." </td></tr>";
+                    echo "<tr class='table-success'><td>Auxílio-creche: </td><td align='right'>".formataNumeroReal($auxilioCreche)." </td></tr>";
                     $bruto += $auxilioCreche;
             }
-            if($indenizatorias > 0 && $isParcIndenizatoria == 1){
-                    echo "<tr><td>Parcelas Indenizatórias: </td><td align='right'>".formataNumeroReal($indenizatorias)." </td></tr>";
-                    $bruto += $indenizatorias;
-            }
+
 
                 /*
                 * Calcula o valor de FC ou CC do MPU
@@ -366,7 +339,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                         $resultado2 = mysqli_query($conexao, $query) or die ("Erro de consulta do VB");
                         $row2 = mysqli_fetch_array($resultado2, MYSQLI_ASSOC);
                         $vencimento = $row2['vb'];
-                        echo "<tr><td>Função/Cargo de Confiança: </td><td align='right'>".formataNumeroReal($vencimento)." </td></tr>";
+                        echo "<tr class='table-success'><td>Função/Cargo de Confiança: </td><td align='right'>".formataNumeroReal($vencimento)." </td></tr>";
                         $bruto += $vencimento;
                         $baseIrrf += $vencimento;
                         $remuneracao += $vencimento;
@@ -388,7 +361,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                         $row2 = mysqli_fetch_array($resultado2, MYSQLI_ASSOC);
                         $vencimento = $row2['vb'];
                         echo "
-                        <tr><td>Função/Cargo de Confiança: </td><td align='right'>".formataNumeroReal($vencimento)." </td></tr>";
+                        <tr class='table-success'><td>Função/Cargo de Confiança: </td><td align='right'>".formataNumeroReal($vencimento)." </td></tr>";
                         $bruto += $vencimento;
                         $baseIrrf += $vencimento;
                         $remuneracao += $vencimento;
@@ -398,7 +371,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 /*
                 * Calcula salário bruto
                 */
-                echo "<tr><td><b>SALÁRIO BRUTO</b>: </td><td align='right'><font size='4'><b>".formataNumeroReal($bruto)." </b></font></td></tr>";
+                echo "<tr  class='table-info'><td><b>SALÁRIO BRUTO</b>: </td><td align='right'><font size='4'><b>".formataNumeroReal($bruto)." </b></font></td></tr>";
 
                 /*
                 * DESCONTOS
@@ -439,7 +412,7 @@ function calculaNovaPrevidencia($vencimento, $ano){
                 $descontos = $pssValor;
                 $rendimentosTributaveis = $baseIrrf;
                 $baseIrrf -= $pssValor;
-                echo "<tr><td>PSS: </td><td align='right'><font color='660000'>(".formataNumeroReal($pssValor).")</font> </td></tr>";
+                echo "<tr class='table-warning'><td>PSS: </td><td align='right'><font color='660000'>(".formataNumeroReal($pssValor).")</font> </td></tr>";
 
                 //Calculo de contribuição do FUNPRESP
                 if($previdencia == 2 && $basepss >= $teto && $funprespIndice > 0){
@@ -451,101 +424,27 @@ if($funprespOpcional > 0){
 $funprespOpcionalValor = round((($basepss - $teto) * $funprespOpcional),2);
 $descontos += $funprespOpcionalValor;
 $baseIrrf -= $funprespOpcionalValor;
-echo "<tr><td>Contribuição Funpresp Opcional (".($funprespOpcional*100)."%): </td><td align='right'><font color='660000'>(".formataNumeroReal($funprespOpcionalValor).")</font> </td></tr>";
+echo "<tr class='table-warning'><td>Contribuição Funpresp Opcional (".($funprespOpcional*100)."%): </td><td align='right'><font color='660000'>(".formataNumeroReal($funprespOpcionalValor).")</font> </td></tr>";
 
 }
                 }
-                /*
-                * Plan Assiste - Alterar para nova implementação.
-                */
-                if($planTit && $orgao == 1 && $isPlanAssiste == 1){
-                        //Busca o valor da maior remuneração (teto do Plan Assiste), equivalente a VB + GAMPU de analista 13
-                        $query = "select vencimento_basico as vb from vencimentos where
-                        referencia='".$referencia."' AND cargo='3' AND
-                        nivel='13' limit 1";
-                        $resultado3 = mysqli_query($conexao, $query) or die ("Erro de consulta do VB");
-                        $row3 = mysqli_fetch_array($resultado3, MYSQLI_ASSOC);
-                        $tetoPlanAssiste = $row3['vb'] * (1+$gajIndice);
-                        $remuneracaoPlanAssiste = $remuneracao;
-                        if($remuneracaoPlanAssiste > $tetoPlanAssiste) $remuneracaoPlanAssiste = $tetoPlanAssiste;
 
-
-
-
-                        $planIndice = $planTit + $planConj + ($planFilhos/200);
-                        $planValor = round($remuneracaoPlanAssiste * $planTit,2);
-                        echo "<tr><td>Mensalidade Plan-Assiste (Titular): </td><td align='right'><font color='660000'>(".formataNumeroReal($planValor).")</font> </td></tr>";
-                        $descontos += $planValor;
-                        $margemConsignavel -= $planValor;
-                        if($planConj){
-                                $planValor  = round($remuneracaoPlanAssiste * $planConj,2);
-                                echo "<tr><td>Mensalidade Plan-Assiste (Cônjuge): </td><td align='right'><font color='660000'>(".formataNumeroReal($planValor).")</font> </td></tr>";
-                                $descontos += $planValor;
-                                $margemConsignavel -= $planValor;
-                        }
-                        if($planAssisteFilho > 0){
-                                $planValor  = round($remuneracaoPlanAssiste * ($planAssisteFilho/200),2);
-                                echo "<tr><td>Mensalidade Plan-Assiste (Filhos): </td><td align='right'><font color='660000'>(".formataNumeroReal($planValor).")</font> </td></tr>";
-                                $descontos += $planValor;
-                                $margemConsignavel -= $planValor;
-                        }
-                        if($planAssistePais > 0){
-                                $planValor  = round($remuneracaoPlanAssiste * ($planAssistePais*1.5/100),2);
-                                echo "<tr><td>Mensalidade Plan-Assiste (Pais): </td><td align='right'><font color='660000'>(".formataNumeroReal($planValor).")</font> </td></tr>";
-                                $descontos += $planValor;
-                                $margemConsignavel -= $planValor;
-                        }
-                        if($planAssisteBeneficiariosEspeciais > 0){
-                                $planValor  = round($tetoPlanAssiste * ($planAssisteBeneficiariosEspeciais*1.5/100),2);
-                                echo "<tr><td>Mensalidade Plan-Assiste (Beneficiários Especiais): </td><td align='right'><font color='660000'>(".formataNumeroReal($planValor).")</font> </td></tr>";
-                                $descontos += $planValor;
-                                $margemConsignavel -= $planValor;
-                        }
-                        if($planAssisteExConjuge > 0){
-                                $planValor  = round($tetoPlanAssiste * ($planAssisteExConjuge*3/100),2);
-                                echo "<tr><td>Mensalidade Plan-Assiste (Ex-Cônjuge): </td><td align='right'><font color='660000'>(".formataNumeroReal($planValor).")</font> </td></tr>";
-                                $descontos += $planValor;
-                                $margemConsignavel -= $planValor;
-                        }
-
-                }
-
-                /*
-                *PensÃ£o alimentÃ­cia Judicial
-                */
-                if($pensaoAlimentciaJudicial > 0 && $isPensaoJudicial == 1){
-                    echo "<tr><td>Pensão Alimentícia(judicial): </td><td align='right'><font color='660000'>(".formataNumeroReal($pensaoAlimentciaJudicial).")</font> </td></tr>";
-                    $descontos += $pensaoAlimentciaJudicial;
-                    $baseIrrf -= $pensaoAlimentciaJudicial;
-            }
-
-            //Apura a pensão alimentícia Judicial definida sobre percentual da remuneração
-                if($pensaoAlimenticiaJudicialPercentual > 0 && $isPensaoJudicial == 1){
-                        $pensaoAlimenticiaJudicialPercentualValor = round(($pensaoAlimenticiaJudicialPercentual * $remuneracao / 100),2);
-                    echo "<tr><td>Pensão Alimentícia(judicial) - ".$pensaoAlimenticiaJudicialPercentual."%: </td><td align='right'><font color='660000'>(".formataNumeroReal($pensaoAlimenticiaJudicialPercentualValor).")</font> </td></tr>";
-                    $descontos += $pensaoAlimenticiaJudicialPercentualValor;
-                    $baseIrrf -= $pensaoAlimenticiaJudicialPercentualValor;
-            }
 
                 /*
                 * Apura imposto de renda (a funÃƒÂ§ÃƒÂ£o de imposto de renda jÃƒÂ¡ estÃƒÂ¡ escrita, olhar no final do cÃƒÂ³digo)
                 */
                 $irrfValor = calculaIRRF($baseIrrf, $dependentes, 0);
                 $descontos += $irrfValor;
-                echo "<tr><td>Imposto de Renda: </td><td align='right'><font color='660000'>(".formataNumeroReal($irrfValor).")</font> </td></tr>";
+                echo "<tr class='table-warning'><td>Imposto de Renda: </td><td align='right'><font color='660000'>(".formataNumeroReal($irrfValor).")</font> </td></tr>";
 
 
 
-                if($outrosDescontos > 0  && $isOutrosDescontos == 1){
-                    echo "<tr><td>Outros Descontos: </td><td align='right'><font color='660000'>(".formataNumeroReal($outrosDescontos).")</font> </td></tr>";
-                    $descontos += $outrosDescontos;
-                    $margemConsignavel -= $outrosDescontos;
-            }
 
-                echo "<tr><td>Total de Descontos: </td><td align='right'><font color='660000'><b>(".formataNumeroReal($descontos).")</b></font></td></tr>";
+
+                echo "<tr class='table-info'><td>Total de Descontos: </td><td align='right'><font color='660000'><b>(".formataNumeroReal($descontos).")</b></font></td></tr>";
 
                 $liquido = $bruto - $descontos;
-                echo "<tr><td><b>SALÁRIO LÍQUIDO</b>: </td><td align='right' bgcolor='yellow'><font size='4'><b>".formataNumeroReal($liquido)."</b></font> </td></tr>";
+                echo "<tr class='table-dark'><td><b>SALÁRIO LÍQUIDO</b>: </td><td align='right' ><font size='4'><b>".formataNumeroReal($liquido)."</b></font> </td></tr>";
 
                 /*
                 * Informações complementares
@@ -564,7 +463,7 @@ echo "<tr><td><font size='2'>Rendimentos Tributáveis</b>: </td><td align='right
  if($orgao == 1)echo "<tr><td><font size='2'>Teto do Auxílio Saúde (5%)</b>: </td><td align='right'><b>".formataNumeroReal($valorAuxSaude5)."</font> </td></tr>";
  if($orgao == 1)echo "<tr><td><font size='2'>Teto do Auxílio Saúde (8%)</b>: </td><td align='right'><b>".formataNumeroReal($valorAuxSaude)."</font> </td></tr>";
 
-             echo "</table><hr />";
+             echo "</tbody></table><hr />";
 
              /*
              CALCULAR PLAN-ASSISTE
@@ -574,18 +473,7 @@ echo "<tr><td><font size='2'>Rendimentos Tributáveis</b>: </td><td align='right
 
 
              */
-            if($orgao == 1){
-                    //colocar os valores de salário bruto, líquido e auxílio saúde num form
 
-                    //criar o botão de link
-                    ?>
-                    <form action="planAssiste.php" method="post">
-                    <input type="hidden" id="salarioBruto" value="<?php echo $bruto?>" />
-                    <input type="hidden" id="descontos" value="<? echo $descontos ?>"/>
-                    <input type="submit" class="btn btn-info mb-2" value="Simular Plan-Assiste"/>(em desenvolvimento)
-            </form>
-                    <?php
-            }
 
                  }
          }
@@ -657,10 +545,8 @@ function calculaIRRF($vencimento, $dependentes, $ano){
                 <p>Se você gostou, contribua com a iniciativa. Doe! A sua contribuição é importante para manter os custos de manutenção de hospedagem e registro de domínio da página. </p>
                 <a href='index.php'>Novo Cálculo</a>
                 <hr width="50%">
-        <p>Atualizado em 05/02/2022. <a href="sobre.php">Sobre o Sistema</a></p>
+        <p>Atualizado em 15/05/2022. <a href="sobre.php">Sobre o Sistema</a></p>
       <p>© Todos os direitos reservados. Criado por José Antonio dos Santos Barbosa. <adress>Contato: <a href="mailto:webmaster@josebarbosa.com.br">
 webmaster@josebarbosa.com.br</a></adress>
-<p><b>Observação</b>: os valores ora demonstrados são apenas uma perspectiva, e podem apresentar diferenças em razão de interpretação ou aplicação por parte dos órgãos.
-Favor utilizar o e-mail para esclarecer dúvidas sobre eventuais inconsistências encontradas, ou verificar o motivo para a simulação apresentar diferenças significativas nos valores.
-           </div></body>
+ </div></body>
 </html>

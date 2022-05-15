@@ -7,8 +7,10 @@ session_start();
 		<!--
 			Inclui a biblioteca bootstrap, para melhorar o visual da página.
 		-->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-                <style type="text/css">
+    <?php
+    include '../bootstrap.php';
+    ?>
+        <style type="text/css">
                         BODY{
                                 font-family: arial, verdana, courier;
                         }
@@ -42,7 +44,10 @@ session_start();
         <title>Resultado da Simulação</title>
     </head>
     <body>
-                
+      <?php
+      include '../menu.php';
+      ?>
+
                 <div style="background-color:#FFF">
 <?php
     setlocale(LC_ALL, 'pt_BR');
@@ -598,6 +603,3 @@ webmaster@josebarbosa.com.br</a></adress>
 Favor utilizar o e-mail para esclarecer dúvidas sobre eventuais inconsistências encontradas, ou verificar o motivo para a simulação apresentar diferenças significativas nos valores.
            </div></body>
 </html>
-
-
-	

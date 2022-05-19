@@ -296,6 +296,8 @@ include '../bootstrap.php';
         </div>
 		<p>Se você gostou, contribua com a iniciativa. Doe!  É possível doar qualquer valor, o procedimento é seguro (através do PagSeguro), e sua contribuição é muito importante para custear as despesas de manutenção desta página. </p>
 		<hr width="50%">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5983876568090420"
+     crossorigin="anonymous"></script>
 	<p>Atualizado em 14/05/2022. <a href="sobre.php">Sobre o Sistema</a></p>
       <p>© Todos os direitos reservados. Criado por José Antonio dos Santos Barbosa. <adress>Contato: <a href="mailto:jose@josebarbosa.com.br">
 jose@josebarbosa.com.br</a></adress>

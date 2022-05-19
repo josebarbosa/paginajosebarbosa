@@ -58,7 +58,8 @@
       </div>
     </div>
   </div>
-
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5983876568090420"
+       crossorigin="anonymous"></script>
 
   </body>
 </html>

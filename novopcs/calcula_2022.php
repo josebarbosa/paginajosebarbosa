@@ -545,6 +545,8 @@ function calculaIRRF($vencimento, $dependentes, $ano){
                 <p>Se você gostou, contribua com a iniciativa. Doe! A sua contribuição é importante para manter os custos de manutenção de hospedagem e registro de domínio da página. </p>
                 <a href='index.php'>Novo Cálculo</a>
                 <hr width="50%">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5983876568090420"
+     crossorigin="anonymous"></script>
         <p>Atualizado em 15/05/2022. <a href="sobre.php">Sobre o Sistema</a></p>
       <p>© Todos os direitos reservados. Criado por José Antonio dos Santos Barbosa. <adress>Contato: <a href="mailto:webmaster@josebarbosa.com.br">
 webmaster@josebarbosa.com.br</a></adress>

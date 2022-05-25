@@ -4,7 +4,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5983876568090420"
+         crossorigin="anonymous"></script>
   <title>Página Inicial de José Barbosa</title>
   <?php
  include 'bootstrap.php';

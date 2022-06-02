@@ -23,6 +23,8 @@
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item disabled" aria-disabled="true" href="#">Planos Anteriores</a></li>
         <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="https://josebarbosa.com.br/tcu2022/index.php">Calculadora do TCU - 2022</a></li>
+        <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="https://josebarbosa.com.br/novopcs/sobre.php">Sobre o Sistema</a></li>
       </ul>
     </li>
